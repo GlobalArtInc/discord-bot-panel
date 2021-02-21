@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? '/discord-bot-panel/' : '',
+  publicPath: process.env.BASE_URL,
   "transpileDependencies": [
     "vuetify"
   ]

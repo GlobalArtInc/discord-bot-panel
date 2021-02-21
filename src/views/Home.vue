@@ -15,7 +15,7 @@
         :items="guilds"
     >
       <template v-slot:item.action="{item}">
-        <v-btn :to="'/server/' + item.id" fab small color="cyan">
+        <v-btn :to="{name: 'Server', params: {id: item.id}}" fab small color="cyan">
           <v-icon dark>
             mdi-pencil
           </v-icon>
