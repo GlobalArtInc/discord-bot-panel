@@ -1,16 +1,17 @@
 <template>
   <v-card>
     <v-card-title>
-      <!--<v-text-field
-           v-model="search"
-           append-icon="mdi-magnify"
-           label="Search"
-           single-line
-           hide-details
-       ></v-text-field>-->
+      <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+      ></v-text-field>
     </v-card-title>
     <v-data-table
         :headers="headers"
+        :search="search"
         :items="guilds"
     >
       <template v-slot:item.action="{item}">
@@ -32,11 +33,12 @@ export default {
   name: 'Home',
   data() {
     return {
+      search: "",
       headers: [
         {
           text: 'Server Name',
           align: 'start',
-          filterable: false,
+          sortable: false,
           value: 'name'
         },
         {
