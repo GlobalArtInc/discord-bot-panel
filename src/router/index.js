@@ -28,6 +28,17 @@ const routes = [
         ]
     },
     {
+        path: '/commands',
+        component: Layout,
+        children: [
+            {
+                path: '',
+                name: 'Commands',
+                component: () => import('../views/Commands/Index')
+            }
+        ]
+    },
+    {
         path: '*',
         redirect: '/'
     }

@@ -28,9 +28,14 @@
       </div>
 
       <v-spacer></v-spacer>
-      <v-btn v-if="botLogged" @click="$store.dispatch('bot/logout')">
-        Выйти
-      </v-btn>
+      <template v-if="botLogged">
+        <v-btn to="/commands">
+          Слэш-команды
+        </v-btn>
+        <v-btn style="margin-left: 1em;" @click="$store.dispatch('bot/logout')">
+          Выйти
+        </v-btn>
+      </template>
     </v-app-bar>
 
     <v-main>
