@@ -1,5 +1,7 @@
 # discord-bot-panel
 **The panel is in the early stages of development**
+
+[Website ](https://globalartlimited.github.io/discord-bot-panel/)
 ## Project setup
 ```
 yarn install
