@@ -43,6 +43,10 @@ const fetchMessages = (messages) => {
     return arr
 }
 
+export function getClient(){
+    return client;
+}
+
 export function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -69,6 +73,10 @@ export function delMessage(commit, state, id) {
             commit('SET_MESSAGES', fetchMessages(res))
         })
     }
+}
+
+export function getAvatar() {
+    return client.user.displayAvatarURL()
 }
 
 export function getChannel(id) {
@@ -104,6 +112,7 @@ export function setGuild(commit, dispatch, id) {
 export function init(commit, dispatch, state, token) {
     client.login(token).then(() => {
         localStorage.setItem('token', token)
+        commit('SET_CLIENT', client)
         commit('SET_LOGGED', true)
     }).catch(() => {
         dispatch('logout')
@@ -168,3 +177,4 @@ export function init(commit, dispatch, state, token) {
         commit('SET_GUILDS', fetchGuilds(client.guilds.cache))
     })
 }
+export default client;

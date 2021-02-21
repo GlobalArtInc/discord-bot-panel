@@ -46,6 +46,9 @@ const mutations = {
     }
 }
 const actions = {
+    setClient({commit}, data) {
+      commit('SET_CLIENT', data)
+    },
     delMessage({commit, state}, id) {
         delMessage(commit, state, id)
     },

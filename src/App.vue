@@ -29,14 +29,40 @@
 
       <v-spacer></v-spacer>
       <template v-if="botLogged">
-        <v-btn to="/commands">
-          Слэш-команды
-        </v-btn>
-        <v-btn style="margin-left: 1em;" @click="$store.dispatch('bot/logout')">
-          Выйти
+        <v-btn icon x-large @click.stop="drawer = !drawer">
+          <v-avatar>
+            <v-img :src="getAvatar()"/>
+          </v-avatar>
         </v-btn>
       </template>
     </v-app-bar>
+
+    <v-navigation-drawer
+        v-if="botLogged"
+        v-model="drawer"
+        absolute
+        temporary
+        right>
+      <v-list-item>
+        <v-list-item-avatar>
+          <v-img :src="getAvatar()"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>{{ client.user.username }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list>
+        <v-list-item link :to="{path: '/commands'}">
+          Слэш-команды
+        </v-list-item>
+        <v-list-item @click="$store.dispatch('bot/logout')">
+          Выйти
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>
 
     <v-main>
       <v-container fluid>
@@ -59,12 +85,13 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import {getUser, getChannel} from "./bot";
+import {getUser, getChannel, getAvatar} from "./bot";
 
 export default {
   name: 'App',
   data: () => ({
     currentServer: 0,
+    drawer: false,
     form: {
       token: ''
     },
@@ -80,12 +107,15 @@ export default {
   mounted() {
     if (localStorage.token) {
       this.$store.dispatch('bot/setStatus', true);
-      this.$store.dispatch('bot/init', localStorage.token)
+      this.$store.dispatch('bot/init', localStorage.token);
     } else {
       this.$store.dispatch('bot/setStatus', false);
     }
   },
   methods: {
+    getAvatar() {
+      return getAvatar();
+    },
     onScroll(e) {
       this.offsetTop = e.target.scrollTop
     },
