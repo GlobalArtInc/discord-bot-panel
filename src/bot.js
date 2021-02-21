@@ -2,6 +2,16 @@ import Discord from 'discord.js'
 
 const client = new Discord.Client();
 
+export async function checkGuild (id) {
+    return new Promise((resolve, reject) => {
+        if (client.guilds.cache.get(id)) {
+            resolve()
+        } else {
+            reject()
+        }
+    })
+}
+
 const fetchGuilds = (guilds) => {
     let arr = []
     guilds.forEach((item) => {
@@ -84,10 +94,11 @@ export function setChannel(commit, state, item) {
 }
 
 export function setGuild(commit, dispatch, id) {
-    const channels = fetchChannels(client.guilds.cache.get(id).channels.cache)
     commit('SET_GUILD', id)
-    dispatch('setChannel', channels[0].id)
-    commit('SET_CHANNELS', channels)
+   // console.log(client.guilds.cache.get(id).channels.cache.filter((с => c.value.type === 'text')))
+   // const channels = fetchChannels(client.guilds.cache.get(id).channels.cache)
+   // dispatch('setChannel', channels[0].id)
+  //  commit('SET_CHANNELS', channels)
 }
 
 export function init(commit, dispatch, state, token) {
@@ -102,7 +113,6 @@ export function init(commit, dispatch, state, token) {
         let guilds = fetchGuilds(client.guilds.cache)
 
         commit('SET_GUILDS', guilds)
-        dispatch('setGuild', guilds[0].id)
     })
 
     client.on('messageUpdate', (e) => {

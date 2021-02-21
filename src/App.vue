@@ -6,14 +6,16 @@
         dark
     >
       <div class="d-flex align-center">
-        <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            src="./assets/Discord-Logo-White.svg"
-            transition="scale-transition"
-            width="40"
-        />
+        <router-link to="/">
+          <v-img
+              alt="Vuetify Logo"
+              class="shrink mr-2"
+              contain
+              src="./assets/Discord-Logo-White.svg"
+              transition="scale-transition"
+              width="40"
+          />
+        </router-link>
 
         <!-- <v-img
              alt="Vuetify Name"
@@ -33,62 +35,7 @@
 
     <v-main>
       <v-container fluid>
-        <template v-if="botLogged">
-          <v-select filled label="Сервер" :value="guild" @change="onChangeServer($event)" :items="guilds"
-                    item-text="name" item-value="id"/>
-          <v-row>
-            <v-col :cols="12" :md="12" :lg="6" :sm="12">
-              <v-card dark>
-                <v-card-title>
-                  # {{ channel.name }}
-                </v-card-title>
-                <v-card-text>
-                  <v-select label="Канал" @change="onChangeChannel($event)" :value="channel" dense :items="channels"
-                            item-text="name" item-value="id"/>
-                  <perfect-scrollbar style="max-height: 400px">
-                    <v-list>
-                      <v-list-item v-for="item in messages" :key="item.id">
-                        <v-list-item-avatar>
-                          <v-img :src="item.author.displayAvatarURL()"/>
-                        </v-list-item-avatar>
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ item.author.username }}#{{ item.author.discriminator }}
-                            [{{ item.created }}]
-                            <v-btn color="error" @click="deleteMessage(item.id)" fab small>
-                              <v-icon>
-                                mdi-delete
-                              </v-icon>
-                            </v-btn>
-                          </v-list-item-title>
-                          <v-list-item-subtitle v-html="createMessage(item)" style="white-space:normal"/>
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
-                  </perfect-scrollbar>
-                  <v-container
-                      v-if="messages.length > 0"
-                      fluid
-                      id="scroll-target"
-                      style="max-height: 500px"
-                      class="overflow-y-auto"
-                  >
-                  </v-container>
-                  <template v-else>
-                    <h3>Чат пустой</h3>
-                  </template>
-                  <br/>
-                  <v-textarea filled append-icon="mdi-send" @click="sendMessage(item)"/>
-                </v-card-text>
-              </v-card>
-            </v-col>
-            <v-col :cols="12" :lg="6" :sm="12">
-              <v-card>
-                <v-card-title>Прошлые сообщения</v-card-title>
-              </v-card>
-            </v-col>
-          </v-row>
-        </template>
+        <router-view v-if="botLogged"/>
         <template v-else-if="status">
           <v-progress-linear color="error" absolute top indeterminate/>
         </template>
