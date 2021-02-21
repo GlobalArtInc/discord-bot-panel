@@ -1,5 +1,5 @@
 # discord-bot-panel
-
+**The panel is in the early stages of development**
 ## Project setup
 ```
 yarn install
